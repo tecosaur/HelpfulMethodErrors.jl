@@ -1,0 +1,24 @@
+#+title: HelpfulErrors
+
+Julia's errors are much less helpful than they could (or should, as some would say) be. Let's try to bridge the gap a bit.
+
+This package is a prototype for functionality that I think should be in the Base
+language. This isn't a complete solution, but I think it's a step in the right direction.
+
+#+begin_src julia-repl
+pkg> add https://github.com/tecosaur/HelpfulErrors.jl
+
+julia> using HelpfulErrors
+
+julia> "a" + "b"
+
+ERROR: MethodError: no method matching +(::String, ::String)
+
+Suggestion: To concatenate strings use the * operator not +, try "a" * "b".
+Docs: For more information see manual/strings/#man-concatenation.
+Note: If you're wondering why * is used over +, the short version is to respect
+  that concatenation is non-commutative.
+
+Closest candidates are:
+...
+#+end_src
