@@ -3,7 +3,7 @@ const HINTS = [
     Suggestion(MethodError, :(AbstractString + AbstractString),
                m -> "To concatenate strings use the `*` operator not `+`, try `\"$(m.args[1])\" * \"$(m.args[2])\"`."),
     Docs(MethodError, :(AbstractString + AbstractString),
-         ["manual/strings/#man-concatenation"]),
+         ["manual/strings#man-concatenation"]),
     Note(MethodError, :(AbstractString + AbstractString),
          "If you're wondering why `*` is used over `+`, the short version is
          to respect that concatenation is non-commutative."),
@@ -53,7 +53,7 @@ const HINTS = [
          "This operation is intended for linear algebra usage — for general data manipulation see `permutedims`, which is non-recursive."),
     # Other (non-methdo) errors, these don't work ATM :(
     Suggestion(OverflowError, "Consider using a `BigInt` or `BigFloat`."),
-    Docs(OverflowError, ["/manual/integers-and-floating-point-numbers/#Arbitrary-Precision-Arithmetic"]),
+    Docs(OverflowError, ["/manual/integers-and-floating-point-numbers#Arbitrary-Precision-Arithmetic"]),
     Suggestion(InexactError, e -> e.T <: Integer,
                e -> "To round a value, use `round($(e.func), $(e.val))`.")
 ]

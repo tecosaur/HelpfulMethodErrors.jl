@@ -26,6 +26,11 @@ Hint{hinttype, M}(exception::Type{<:Exception}, message::M, priority::Int=get(HI
 Hint{hinttype}(exception::Type{<:Exception}, message::M, priority::Int=get(HINT_PRIORITIES, hinttype, 0)) where {hinttype, M} =
     Hint{hinttype, M, Bool}(exception, true, message, priority)
 
+# Docs path
+
+const DOCS_ROOT =
+    joinpath(dirname(Sys.BINDIR), "share", "doc", "julia", "html", "en")
+
 # Display
 
 const HINT_COLORS = Dict(
@@ -53,7 +58,9 @@ function showbody(io::IO, hint::Hint{T, Markdown.MD}, ::Exception) where {T}
 end
 
 function showbody(io::IO, hint::Hint{:docs, Vector{String}}, ::Exception) where {T}
-    links = map(p -> termlink(string("https://docs.julialang.org/en/v", VERSION, '/', p), p),
+    links = map(p -> termlink(string("file://", DOCS_ROOT, '/',
+                                     replace(p, r"($|#)" => s".html\1", count=1)),
+                              p),
                 hint.message)
     print(io, "For more information see ",
           join(links, ", ", ", and"),
